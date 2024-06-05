@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-const url = "http://localhost:7373/api/V1";
+// const url = "http://localhost:9191/admin/V1";
+const url = "https://timme.prometteur.in/admin/V1";
 
 function Login() {
   const naviget = useNavigate();
@@ -11,7 +12,7 @@ function Login() {
   //     console.log(11111, "---=======");
   //     naviget("/game");
   //   }
-  const [email, setEmail] = useState("rksain@gmail.com");
+  const [email, setEmail] = useState("admin@gmail.com");
   const [password, setPassword] = useState("12345678");
 
   const handlePasswordChange = (event) => {
@@ -33,12 +34,14 @@ function Login() {
       if (data.success) {
         console.log("Login successful:", data);
         localStorage.setItem("token", data.data.token);
-        naviget("/game");
+        naviget("/dashboard");
       } else {
         console.error("Login failed:", data);
       }
     } catch (error) {
-      alert(error.response.data.message);
+      console.log(error?.response, "--error?.response?");
+      alert(error?.response?.data?.message);
+      naviget("/");
       console.error("Error during login:", error);
     }
   };
