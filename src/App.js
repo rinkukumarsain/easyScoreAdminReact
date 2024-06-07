@@ -9,6 +9,10 @@ import SideBar from './routes/SideBar.jsx';
 // RootLoader()
 function App() {
   const token = localStorage.getItem('token');
+  const userProps = {
+    type: true, // Replace with actual data to be passed
+  };
+
   return (
     <BrowserRouter >
       <div className="d-flex">
@@ -16,7 +20,7 @@ function App() {
         <Routes>
           <Route path='/' element={token ? <Dashboard /> : <Login />} />
           <Route path='/dashboard' element={token ? <Dashboard /> : <Login />} />
-          <Route path='/Users' element={token ? <Users /> : <Login />} />
+          <Route path='/Users' element={token ? <Users {...userProps} /> : <Login />} />
           {/* <Route path='/' element={<Root />} /> */}
           {/* <Route path='/game' element={<Game />} /> */}
           {/* <Route path='/start' element={<Game />} />
