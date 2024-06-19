@@ -1,49 +1,40 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-// const url = "http://localhost:9191/admin/V1";
-const url = "https://timme.prometteur.in/admin/V1";
+import { handleUserLoginApi } from "../apiService/user";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function Login() {
   const naviget = useNavigate();
-  console.log(localStorage.getItem("token"), "---=======");
-  //   localStorage.getItem("token")?
-  //   if (localStorage.getItem("token")) {
-  //     console.log(11111, "---=======");
-  //     naviget("/game");
-  //   }
-  const [email, setEmail] = useState("admin@gmail.com");
-  const [password, setPassword] = useState("12345678");
+  const [email, setEmail] = useState("");           //admin@gmail.com
+  const [password, setPassword] = useState("");     //12345678
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
 
-  const handleSubmit = async (event) => {
+  const handleUserLogin = async (event) => {
     event.preventDefault();
-    // Here you would typically send the email and password to your server for authentication
-    console.log("Email:", email);
-    console.log("Password:", password);
+    const body = { email, password, appKey: "---", };
+    console.log(body, "----body");
+
     try {
-      const response = await axios.post(`${url}/user/login`, {
-        email,
-        password,
-        appKey: "---",
-      });
-      let data = response.data;
+      const data = await handleUserLoginApi(body);
+
       if (data.success) {
-        console.log("Login successful:", data);
-        localStorage.setItem("token", data.data.token);
-        naviget("/dashboard");
+        naviget("/");
+        toast(data?.message);
       } else {
-        console.error("Login failed:", data);
-      }
+        toast(data?.data?.message);
+        naviget("/login");
+      };
+
     } catch (error) {
-      console.log(error?.response, "--error?.response?");
-      alert(error?.response?.data?.message);
-      naviget("/");
-      console.error("Error during login:", error);
-    }
+      toast(error?.response?.message);
+      naviget("/login");
+    };
+
   };
 
   return (
@@ -52,7 +43,7 @@ function Login() {
         <h1>Elevating Sports Betting Management to New Heights!</h1>
         <h2>Log in</h2>
         <p>Enter your information below to log in</p>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleUserLogin}>
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <input

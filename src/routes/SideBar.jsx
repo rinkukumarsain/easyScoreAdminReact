@@ -7,7 +7,7 @@ export const SideBar = () => {
       </div>
       <ul>
         <li>
-          <a href="/dashboard">Dashboard</a>
+          <a href="/">Dashboard</a>
         </li>
         <li>
           <a href="/Users">Users</a>
