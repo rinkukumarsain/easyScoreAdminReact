@@ -7,7 +7,7 @@ export default function TopThreeBox() {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  console.log(authToken, "---authToken");
+  // console.log(authToken, "---authToken");
 
   useEffect(() => {
     const fetchReport = async () => {

@@ -6,6 +6,7 @@ import Users from './routes/UsersTable.jsx';
 import Dashboard from './routes/Dashboard.jsx';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import SideBar from './routes/SideBar.jsx';
+import AdminProfile from './routes/adminProfile.jsx';
 // RootLoader()
 function App() {
   const token = localStorage.getItem('token');
@@ -21,6 +22,7 @@ function App() {
           <Route path='/' element={token ? <Dashboard /> : <Login />} />
           <Route path='/dashboard' element={token ? <Dashboard /> : <Login />} />
           <Route path='/Users' element={token ? <Users {...userProps} /> : <Login />} />
+          <Route path='/adminProfile' element={token ? <AdminProfile {...userProps} /> : <Login />} />
           {/* <Route path='/' element={<Root />} /> */}
           {/* <Route path='/game' element={<Game />} /> */}
           {/* <Route path='/start' element={<Game />} />

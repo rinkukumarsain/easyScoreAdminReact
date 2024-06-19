@@ -9,7 +9,7 @@ import TopThreeBox from "./TopThreeBox.jsx";
 const url = "http://localhost:9191/admin/v1";
 
 export const UsersTable = (userProps) => {
-  console.log(userProps.type, "---userProps");
+  const authToken = localStorage.getItem("token");
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -17,27 +17,22 @@ export const UsersTable = (userProps) => {
   const [limit, setLimit] = useState(10);
   const [skip, setSkip] = useState(0);
   const [search, setSearch] = useState("");
+  const [pageRefress, setPageRefress] = useState(false);
   // const [totalPages, setTotalPages] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+  // const [userState, setUserState] = useState(user);
   // const [SrNO, setSrNo] = useState(1);
-  console.log(search, "---search");
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const authToken = localStorage.getItem("token");
-
         let body = { limit, skip };
 
-        if (search) {
-          body.search = search;
-        }
-        const api1 = await axios.post(`${url}/user/userList`, body, {
-          headers: {
-            Authorization: `Bearer ${authToken}`,
-          },
-        });
-        // console.log(api1.data.data, "---api1", api1.data.totalUser); // Assuming you want to log the response data
-        setUsers(api1.data.data);
+        if (search) { body.search = search; }
+
+        const api1 = await axios.post(`${url}/user/userList`, body, { headers: { Authorization: `Bearer ${authToken}`, }, });
+
+        setUsers(api1.data?.data);
         setTotalPages(Math.ceil(api1.data.totalUser / limit));
       } catch (err) {
         if (!err.response?.data?.success) {
@@ -51,9 +46,9 @@ export const UsersTable = (userProps) => {
         setLoading(false);
       }
     };
-
+    setPageRefress(false);
     fetchUsers();
-  }, [limit, skip, search]);
+  }, [limit, skip, search, pageRefress]);
 
   if (loading) return <p>Loading...</p>;
   // if (error) return <p>Error: {error}</p>;
@@ -61,6 +56,27 @@ export const UsersTable = (userProps) => {
   const paginate = (pageNumber) => {
     setLimit(10);
     setSkip((pageNumber - 1) * 10);
+  };
+
+  const changeUserStatus = async (event, userId) => {
+    try {
+      event.preventDefault();
+      await axios.get(`${url}/user/changeUserStatus/${userId}`, {
+        headers: { Authorization: `Bearer ${authToken}`, },
+      });
+
+      setPageRefress(true)
+    } catch (err) {
+      if (!err.response?.data?.success) {
+        console.log(err?.response?.data?.message, "-----");
+      }
+      let errMs = err?.response?.data?.message
+        ? err.response.data.message
+        : err.message;
+      setError(errMs);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -92,22 +108,14 @@ export const UsersTable = (userProps) => {
           </div>
           {/* <div> */}
           <table
-            // border="2px"
             style={{
               fontSize: "15px",
-              // Gap: "32px",
-              // left: "32px",
-              // top: "32px",
-              // Height: "Hug (956px)",
-              // Width: "Hug (1,636px)",
               width: "100%",
-              // height: "264px",
               top: "66px",
               left: "24px",
               gap: "0px",
               border: "1px 0px 0px 0px",
               opacity: "0px",
-              // border: "1px solid #E6E6E633",
               border: "groove",
             }}
           >
@@ -150,7 +158,6 @@ export const UsersTable = (userProps) => {
             </thead>
             {!error ? (
               <tbody>
-                {/* {let i =1}, */}
                 {users.map((user, index) => (
                   <tr key={index}>
                     <td style={{ border: "1px solid black", height: "30px" }}>
@@ -173,8 +180,8 @@ export const UsersTable = (userProps) => {
                         ? moment().diff(moment(user.loginDate), "day") > 1
                           ? moment(user.loginDate).format("YYYY-MM-DD")
                           : moment().diff(moment(user.loginDate), "day") === 1
-                          ? "Yesterday"
-                          : `${moment().diff(
+                            ? "Yesterday"
+                            : `${moment().diff(
                               moment(user.loginDate),
                               "minutes"
                             )} minutes ago`
@@ -191,6 +198,31 @@ export const UsersTable = (userProps) => {
                     >
                       {user.isActive ? "Active" : "Inactive"}
                     </td>
+                    {userProps.type ? (
+                      <>
+                        <th
+                          style={{ border: "1px solid black", height: "25px" }}
+                        >
+                          <div className="form-check form-switch">
+                            <input
+                              className="form-check-input"
+                              type="checkbox"
+                              role="switch"
+                              checked={user?.isActive ? true : false}
+                              id="flexSwitchCheckDefault"
+                              onClick={(e) => changeUserStatus(e, user._id)}
+                            />
+                          </div>
+                        </th>
+                        <th
+                          style={{ border: "1px solid black", height: "25px" }}
+                        >
+                          =
+                        </th>
+                      </>
+                    ) : (
+                      <></>
+                    )}
                   </tr>
                 ))}
               </tbody>
@@ -271,7 +303,7 @@ export const UsersTable = (userProps) => {
         </div>
         {/* </div> */}
       </div>
-    </div>
+    </div >
   );
 };
 
