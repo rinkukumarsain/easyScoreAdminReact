@@ -258,13 +258,13 @@ export const UsersTable = (userProps) => {
                           <th
                             style={{ border: "1px solid black", height: "25px" }}
                           >
-                            <button type="button" value={user._id} class="btn btn" onClick={(e) => getUserDetails(e, user._id)}>
+                            <button type="button" value={user._id} className="btn btn" onClick={(e) => getUserDetails(e, user._id)}>
                               👁
                             </button>
-                            <button type="button" value={user._id} class="btn btn">
+                            <button type="button" value={user._id} className="btn btn" data-toggle="modal" data-target="#profileModal">
                               ✏
                             </button>
-                            <button type="button" value={user._id} class="btn btn">
+                            <button type="button" value={user._id} className="btn btn">
                               ⛔
                             </button>
                           </th>
@@ -313,8 +313,8 @@ export const UsersTable = (userProps) => {
               }}
             >
               <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                  <li class="page-item">
+                <ul className="pagination">
+                  <li className="page-item">
                     <button
                       key={1}
                       onClick={() => paginate(1)}
@@ -326,7 +326,7 @@ export const UsersTable = (userProps) => {
                   {Array(totalPages)
                     .fill(0)
                     .map((_, index) => (
-                      <li class="page-item">
+                      <li className="page-item">
                         <button
                           key={index}
                           onClick={() => paginate(index + 1)}
@@ -357,14 +357,18 @@ export const UsersTable = (userProps) => {
       <Modal
         show={show}
         size="lg"
-        onHide={handleClose} animation={false} style={{ "color": "black" }}>
+
+        onHide={handleClose} animation={false} style={{ "color": "black", "background-color": "#252729" }}>
         <Modal.Header closeButton>
-          <Modal.Title>User details</Modal.Title>
+          <div style={{ "background-color": "#1A1C1E", "color": "white", "width": "100%" }}>
+            <Modal.Title>User details</Modal.Title>
+
+          </div>
         </Modal.Header>
         <Modal.Body>
 
-          <div className='row'>
-            <div className="col-lg-6">
+          <div className='row stats' style={{ "background-color": "#1A1C1E", "color": "white" }}>
+            <div className="col-lg-6 border border-4">
               <div className="row-lg-6" style={{ "text-align": "center" }}>
                 <img src={usersDetails?.profile_image} alt='Profile Image' style={{ 'width': '150px', 'height': '150px', 'border-radius': '50%', 'margin-bottom': '10px' }} />
                 <h3 style={{ 'margin-top': '0' }}>{usersDetails?.name}</h3>
@@ -387,7 +391,7 @@ export const UsersTable = (userProps) => {
               </div>
             </div>
 
-            <div className='col-lg-6'>
+            <div className='col-lg-6 border border-4'>
               jhb
             </div>
           </div>
@@ -395,6 +399,7 @@ export const UsersTable = (userProps) => {
 
         </Modal.Body >
         <Modal.Footer>
+
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
@@ -405,6 +410,63 @@ export const UsersTable = (userProps) => {
       </Modal >
 
       {/* model close */}
+
+
+
+      {/* The edit profile Modal  */}
+      {/* <!-- Button to Open the Modal --> */}
+      {/* <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#profileModal">
+        Open Profile Modal
+      </button> */}
+
+      {/* <!-- The Modal --> */}
+      <div className="modal" id="profileModal">
+        <div className="modal-dialog">
+          <div className="modal-content" style={{ "background-color": "#1A1C1E", "border": "none", "border-radius": "10px" }}>
+            {/* <!-- Modal Header --> */}
+            <div className="modal-header" style={{ "border-bottom": "none" }}>
+              <h4 className="modal-title" style={{ "color": "white" }}>Profile</h4>
+              <button type="button" className="close" data-dismiss="modal" style={{ "color": "white" }}>&times;</button>
+            </div>
+
+            {/* <!-- Modal Body --> */}
+            <div className="modal-body text-center">
+              <div style={{ "position": "relative", "display": "inline-block" }}>
+                <img src="https://via.placeholder.com/100" className="rounded-circle" alt="User Image" style={{ "width": "100px", "height": "100px" }} />
+                <div style={{ "position": "absolute", "bottom": 0, "right": 0, "background-color": "#666", "border-radius": "50%", "padding": "5px" }}>
+                  <i className="fa fa-camera" style={{ "color": "white" }}></i>
+                </div>
+              </div>
+              <form className="mt-4">
+                <div className="form-group">
+                  <label for="userName" style={{ "color": "white" }}>User Name</label>
+                  <input type="text" className="form-control" id="userName" value="Sophia Collins" readonly style={{ "background-color": "#333", "color": "white", "border": "1px solid #555" }} />
+                </div>
+                <div className="form-group">
+                  <label for="email" style={{ "color": "white" }}>Email</label>
+                  <input type="email" className="form-control" id="email" value="sophiacollins123@gmail.com" readonly style={{ "background-color": "#333", "color": "white", "border": "1px solid #555" }} />
+                </div>
+                <div className="form-row">
+                  <div className="col">
+                    <label for="contact" style={{ "color": "white" }}>Contact</label>
+                    <input type="text" className="form-control" id="contact" value="8974521082" readonly style={{ "background-color": "#333", "color": "white", "border": "1px solid #555" }} />
+                  </div>
+                  <div className="col">
+                    <label for="country" style={{ "color": "white" }}>Country</label>
+                    <input type="text" className="form-control" id="country" value="USA" readonly style={{ "background-color": "#333", "color": "white", "border": "1px solid #555" }} />
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            {/* <!-- Modal Footer --> */}
+            <div className="modal-footer" style={{ "border-top": "none" }}>
+              <button type="button" className="btn btn-primary btn-block" style={{ "background-color": "#A020F0", "border-color": "#A020F0" }}>Update</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </>
   );
 };

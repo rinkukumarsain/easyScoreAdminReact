@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export const SideBar = () => {
   return (
     // <div className="container">
@@ -7,10 +9,10 @@ export const SideBar = () => {
       </div>
       <ul>
         <li>
-          <a href="/">Dashboard</a>
+          <Link to="/">Dashboard</Link>
         </li>
         <li>
-          <a href="/Users">Users</a>
+          <Link to="/Users">Users</Link>
         </li>
         <li>
           <a href="/h">Reports</a>

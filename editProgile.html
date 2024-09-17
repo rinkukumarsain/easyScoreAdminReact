@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Modal</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Include Bootstrap CSS for the modal -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+    background-color: #333;
+}
+
+.modal-content {
+    background-color: #1A1C1E;
+    border: none;
+    border-radius: 10px;
+}
+
+.modal-header, .modal-footer {
+    border: none;
+}
+
+.modal-title {
+    color: white;
+}
+
+.text-white {
+    color: white;
+}
+
+.btn-primary {
+    background-color: #A020F0;
+    border-color: #A020F0;
+}
+
+.btn-primary:hover {
+    background-color: #8B008B;
+    border-color: #8B008B;
+}
+
+input[readonly] {
+    background-color: #333;
+    color: white;
+    border: 1px solid #555;
+}
+
+.profile-pic {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-pic img {
+    width: 100px;
+    height: 100px;
+}
+
+.camera-icon {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: #666;
+    border-radius: 50%;
+    padding: 5px;
+}
+
+.camera-icon i {
+    color: white;
+}
+
+    </style>
+</head>
+<body>
+    <!-- Button to Open the Modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#profileModal">
+      Open Profile Modal
+    </button>
+
+    <!-- The Modal -->
+    <div class="modal" id="profileModal">
+        <div class="modal-dialog">
+            <div class="modal-content" style="background-color: #1A1C1E;">
+                <!-- Modal Header -->
+                <div class="modal-header" style="border-bottom: none;">
+                    <h4 class="modal-title" style="color: white;">Profile</h4>
+                    <button type="button" class="close" data-dismiss="modal" style="color: white;">&times;</button>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-body text-center">
+                    <div class="profile-pic">
+                        <img src="https://via.placeholder.com/100" class="rounded-circle" alt="User Image" />
+                        <div class="camera-icon">
+                            <i class="fa fa-camera"></i>
+                        </div>
+                    </div>
+                    <form class="mt-4">
+                        <div class="form-group">
+                            <label for="userName" class="text-white">User Name</label>
+                            <input type="text" class="form-control" id="userName" value="Sophia Collins" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="text-white">Email</label>
+                            <input type="email" class="form-control" id="email" value="sophiacollins123@gmail.com" readonly>
+                        </div>
+                        <div class="form-row">
+                            <div class="col">
+                                <label for="contact" class="text-white">Contact</label>
+                                <input type="text" class="form-control" id="contact" value="8974521082" readonly>
+                            </div>
+                            <div class="col">
+                                <label for="country" class="text-white">Country</label>
+                                <input type="text" class="form-control" id="country" value="USA" readonly>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="modal-footer" style="border-top: none;">
+                    <button type="button" class="btn btn-primary btn-block">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Bootstrap JS, jQuery, and Font Awesome for the camera icon -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+</body>
+</html>

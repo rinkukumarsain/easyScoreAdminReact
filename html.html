@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Modal</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Include Bootstrap CSS for the modal -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+    
+.modal-content {
+    background-color: #1A1C1E;
+    border: none;
+    border-radius: 10px;
+}
+
+.modal-header, .modal-footer {
+    border: none;
+}
+
+.modal-title {
+    color: white;
+}
+
+.text-white {
+    color: white;
+}
+
+.btn-primary {
+    background-color: #A020F0;
+    border-color: #A020F0;
+}
+
+.btn-primary:hover {
+    background-color: #8B008B;
+    border-color: #8B008B;
+}
+
+input[readonly] {
+    background-color: #333;
+    color: white;
+    border: 1px solid #555;
+}
+
+    </style>
+</head>
+<body>
+    <!-- Button to Open the Modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#profileModal">
+      Open Profile Modal
+    </button>
+
+    <!-- The Modal -->
+    <div class="modal" id="profileModal">
+        <div class="modal-dialog">
+            <div class="modal-content" style="background-color: #1A1C1E;">
+                <!-- Modal Header -->
+                <div class="modal-header" style="border-bottom: none;">
+                    <h4 class="modal-title" style="color: white;">Profile</h4>
+                    <button type="button" class="close" data-dismiss="modal" style="color: white;">&times;</button>
+                </div>
+
+                <!-- Modal Body -->
+                <div class="modal-body text-center">
+                    <img src="https://via.placeholder.com/100" class="rounded-circle" alt="User Image" />
+                    <form class="mt-4">
+                        <div class="form-row">
+                            <div class="col">
+                                <label for="firstName" class="text-white">First Name</label>
+                                <input type="text" class="form-control" id="firstName" value="Samuel" readonly>
+                            </div>
+                            <div class="col">
+                                <label for="lastName" class="text-white">Last Name</label>
+                                <input type="text" class="form-control" id="lastName" value="Cooper" readonly>
+                            </div>
+                        </div>
+                        <div class="form-group mt-3">
+                            <label for="email" class="text-white">Email</label>
+                            <input type="email" class="form-control" id="email" value="samuelcooper123@gmail.com" readonly>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="modal-footer" style="border-top: none;">
+                    <button type="button" class="btn btn-primary btn-block">Edit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Bootstrap JS and jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
